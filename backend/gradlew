@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Gradle wrapper script
+#
+
+# Attempt to set JAVA_HOME if it's not already set
+if [ -z "$JAVA_HOME" ] && command -v java > /dev/null 2>&1; then
+    JAVA_HOME=$(dirname $(dirname $(readlink -f $(command -v java))))
+fi
+
+exec java -jar "$(dirname "$0")/gradle/wrapper/gradle-wrapper.jar" "$@"
