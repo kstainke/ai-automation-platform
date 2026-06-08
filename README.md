@@ -51,4 +51,4 @@ scripts/       # Utility scripts
 
 ## Status
 
-Day 1 of 90-day plan — starting 2026-06-05
+Day 1 of 90-day plan — starting 2026-06-08

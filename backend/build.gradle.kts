@@ -2,10 +2,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     application
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.serialization") version "1.9.22"
-    id("io.ktor.plugin") version "2.3.7"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    kotlin("jvm") version "2.1.20"
+    kotlin("plugin.serialization") version "2.1.20"
+    id("io.ktor.plugin") version "3.1.3"
 }
 
 group = "com.aiautomation"
@@ -26,25 +25,25 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
     implementation("io.ktor:ktor-server-openapi")
-    implementation("io.ktor:ktor-server-swagger-ui")
+    implementation("io.ktor:ktor-server-swagger")
     implementation("io.ktor:ktor-server-auth")
     implementation("io.ktor:ktor-server-cors")
     implementation("io.ktor:ktor-server-call-logging")
     implementation("io.ktor:ktor-server-config-yaml")
 
     // Database
-    implementation("org.jetbrains.exposed:exposed-core:0.48.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.48.0")
-    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.48.0")
+    implementation("org.jetbrains.exposed:exposed-core:0.57.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.57.0")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:0.57.0")
     implementation("org.postgresql:postgresql:42.7.1")
-    implementation("com.ongres:pgvector:0.1.2")
+    implementation("com.pgvector:pgvector:0.1.6")
 
     // AI
     implementation("com.openai:openai-java:0.26.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
 
     // Auth
-    implementation("io.ktor:ktor-server-jwt")
+    implementation("io.ktor:ktor-server-auth-jwt")
     implementation("org.mindrot:jbcrypt:0.4")
 
     // PDF processing
@@ -52,15 +51,14 @@ dependencies {
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     // Logging
     implementation("ch.qos.logback:logback-classic:1.4.14")
-    implementation("io.ktor:ktor-server-call-logging")
 
     // Testing
-    testImplementation("io.ktor:ktor-server-tests")
+    testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 }
 
