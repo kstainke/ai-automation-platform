@@ -1,5 +1,8 @@
 package com.aiautomation
 
+import com.aiautomation.database.initDatabase
+import com.aiautomation.plugins.Security
+import com.aiautomation.routes.authRoutes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -12,47 +15,36 @@ import kotlinx.serialization.json.Json
 import org.slf4j.event.Level
 
 fun Application.module() {
+    val config = environment.config
+
+    Security.init(
+        secret = config.property("jwt.secret").getString(),
+        issuer = config.property("jwt.issuer").getString(),
+        expiryMs = config.property("jwt.expiration").getString().toLong()
+    )
+
     install(CORS) {
         anyHost()
         allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Post)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Authorization)
     }
 
     install(ContentNegotiation) {
-        json(Json {
-            prettyPrint = true
-            isLenient = true
-            ignoreUnknownKeys = true
-        })
+        json(Json { ignoreUnknownKeys = true })
     }
 
     install(CallLogging) {
         level = Level.INFO
     }
 
+    initDatabase(config)
+
     routing {
         get("/health") {
             call.respondText("OK")
         }
-
-        get("/api/auth/register") {
-            call.respond(mapOf("status" to "TODO", "message" to "Registration endpoint"))
-        }
-
-        get("/api/auth/login") {
-            call.respond(mapOf("status" to "TODO", "message" to "Login endpoint"))
-        }
-
-        get("/api/documents") {
-            call.respond(mapOf("status" to "TODO", "message" to "Documents listing"))
-        }
-
-        get("/api/chat") {
-            call.respond(mapOf("status" to "TODO", "message" to "Chat endpoint"))
-        }
-
-        get("/api/search") {
-            call.respond(mapOf("status" to "TODO", "message" to "Search endpoint"))
-        }
+        authRoutes()
     }
 }
