@@ -17,11 +17,7 @@ import org.slf4j.event.Level
 fun Application.module() {
     val config = environment.config
 
-    Security.init(
-        secret = config.property("jwt.secret").getString(),
-        issuer = config.property("jwt.issuer").getString(),
-        expiryMs = config.property("jwt.expiration").getString().toLong()
-    )
+    Security.init(config)
 
     install(CORS) {
         anyHost()
